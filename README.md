@@ -23,6 +23,8 @@ just setup
 just run
 ```
 
+<img width="802" height="632" alt="image" src="https://github.com/user-attachments/assets/3cb1861d-02c1-4410-a47b-a3c7fdee5e92" />
+
 ## Commands
 
 | Command | Description |
