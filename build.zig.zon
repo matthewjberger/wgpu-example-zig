@@ -1,0 +1,16 @@
+.{
+    .name = .wgpu_example_zig,
+    .version = "0.0.0",
+    .fingerprint = 0xbfc61da429f8131e,
+    .dependencies = .{
+        .zalgebra = .{
+            .url = "https://github.com/kooparse/zalgebra/archive/refs/heads/main.zip",
+            .hash = "zalgebra-0.0.0-aaiVSrh2AQAo163qnzoq8qsxxuEYQ8_WxAi1WxKvVjoG",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
