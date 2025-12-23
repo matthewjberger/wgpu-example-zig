@@ -6,6 +6,19 @@ const c = @cImport({
     @cInclude("webgpu/webgpu.h");
 });
 
+fn perspectiveWebGPU(fovy_degrees: f32, aspect: f32, near: f32, far: f32) za.Mat4 {
+    const f = 1.0 / @tan(std.math.degreesToRadians(fovy_degrees) * 0.5);
+    const nf = 1.0 / (near - far);
+    return .{
+        .data = .{
+            .{ f / aspect, 0, 0, 0 },
+            .{ 0, f, 0, 0 },
+            .{ 0, 0, far * nf, -1 },
+            .{ 0, 0, near * far * nf, 0 },
+        },
+    };
+}
+
 const Vertex = extern struct {
     position: [4]f32,
     color: [4]f32,
@@ -454,12 +467,12 @@ fn resize(state: *State, width: u32, height: u32) void {
 fn update(state: *State, delta_time: f32) void {
     const aspect = @as(f32, @floatFromInt(state.width)) / @as(f32, @floatFromInt(@max(state.height, 1)));
 
-    const projection = za.perspective(std.math.degreesToRadians(80.0), aspect, 0.1, 1000.0);
-    const view = za.lookAt(za.Vec3.new(0.0, 0.0, 3.0), za.Vec3.zero(), za.Vec3.up());
-    const rotation = za.Mat4.fromRotation(std.math.degreesToRadians(30.0) * delta_time, za.Vec3.up());
+    const projection = perspectiveWebGPU(80.0, aspect, 0.1, 1000.0);
+    const view = za.Mat4.lookAt(za.Vec3.new(0.0, 0.0, 3.0), za.Vec3.zero(), za.Vec3.up());
+    const rotation = za.Mat4.fromRotation(30.0 * delta_time, za.Vec3.up());
     state.model = rotation.mul(state.model);
 
-    const mvp = projection.mul(view.mul(state.model));
+    const mvp = projection.mul(view).mul(state.model);
     const uniform = UniformBuffer{ .mvp = mvp.data };
 
     c.wgpuQueueWriteBuffer(state.queue, state.uniform_buffer, 0, &uniform, @sizeOf(UniformBuffer));
