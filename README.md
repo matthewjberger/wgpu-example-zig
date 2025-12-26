@@ -1,6 +1,6 @@
 # Zig / SDL2 / WGPU Triangle
 
-A cross-platform Zig graphics demo using [wgpu-native](https://github.com/gfx-rs/wgpu-native) to render a spinning triangle. This is a port of the [wgpu-example-c](https://github.com/matthewjberger/wgpu-example-c) project.
+A cross-platform Zig graphics demo using [wgpu-native](https://github.com/gfx-rs/wgpu-native) to render a spinning triangle.
 
 > **Related Projects:**
 > - [wgpu-example](https://github.com/matthewjberger/wgpu-example) - Rust version
